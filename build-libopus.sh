@@ -22,8 +22,8 @@
 ###########################################################################
 #  Choose your libopus version and your currently-installed iOS SDK version:
 #
-VERSION="1.3"
-SDKVERSION="10.2"
+VERSION="1.3.1"
+SDKVERSION=""
 MINIOSVERSION="8.0"
 
 ###########################################################################
@@ -47,7 +47,8 @@ fi
 
 # No need to change this since xcode build will only compile in the
 # necessary bits from the libraries we create
-ARCHS="i386 x86_64 armv7 armv7s arm64"
+ARCHS="arm64"
+#ARCHS="i386 x86_64 armv7 armv7s arm64"
 
 DEVELOPER=`xcode-select -print-path`
 #DEVELOPER="/Applications/Xcode.app/Contents/Developer"
@@ -104,11 +105,12 @@ do
     if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
         PLATFORM="iPhoneSimulator"
         EXTRA_CFLAGS="-arch ${ARCH}"
-        EXTRA_CONFIG="--host=x86_64-apple-darwin"
+        EXTRA_CONFIG="--host=x86_64"
     else
         PLATFORM="iPhoneOS"
         EXTRA_CFLAGS="-arch ${ARCH}"
         EXTRA_CONFIG="--host=arm-apple-darwin"
+        #EXTRA_CONFIG="--host=x86_64-apple-macos -target arm64"
     fi
 
 	mkdir -p "${INTERDIR}/${PLATFORM}${SDKVERSION}-${ARCH}.sdk"
